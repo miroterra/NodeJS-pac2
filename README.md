@@ -1,6 +1,7 @@
 # Node.js 공부2
 
-Express, nodemon, EJS
+## 패키지
+Express, nodemon, EJS, uuid
 
 ## 내용 정리
 
