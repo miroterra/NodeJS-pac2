@@ -44,6 +44,8 @@ app.get('/restaurants/:id', function (req, res) {
       return res.render('restaurant-detail', { restaurant: restaurant });
     }
   }
+
+  res.status(404).render('404'); // 404 에러 표시
 });
 
 app.get('/recommend', function (req, res) {
@@ -77,6 +79,16 @@ app.get('/about', function (req, res) {
   // const htmlFilePath = path.join(__dirname, 'views', 'about.html');
   // res.sendFile(htmlFilePath);
   res.render('about');
+});
+
+// 404에러 처리
+app.use(function (req, res) {
+  res.status(404).render('404');
+});
+
+// 500 서버에러처리
+app.use(function (error, req, res, next) {
+  res.status(500).render('500');
 });
 
 app.listen(3000);
