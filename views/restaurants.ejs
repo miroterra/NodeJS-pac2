@@ -13,6 +13,11 @@
       <% } else { %>
       <p>Find your next favorite restaurants with help of our other users!</p>
       <p>We found <%= numberOfRestaurants %> restaurants.</p>
+      <form action="/restaurants" method="GET">
+        <!-- 데이터를 저장하지않고 페이지만 리로드하고 싶어서 POST가 아닌 GET 사용 -->
+        <input type="hidden" value="asc" name="order" />
+        <button class="btn">Change Order</button>
+      </form>
       <ul id="restaurants-list">
         <% for (const restaurant of restaurants) { %> <%- include('includes/restaurants/restaurant-item', {restaurant: restaurant}) %> <% }
         %>

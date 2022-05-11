@@ -8,9 +8,27 @@ const router = express.Router();
 router.get('/restaurants', function (req, res) {
   // const htmlFilePath = path.join(__dirname, 'views', 'restaurants.html');
   // res.sendFile(htmlFilePath);
+  // 쿼리 매개변수
+  let order = req.query.order;
+  let nextOrder = 'desc';
+
+  if (order !== 'asc' && order !== 'desc') {
+    order = 'asc';
+  }
+  if (order === 'desc') {
+    nextOrder = 'asc';
+  }
   const storedRestaurants = resData.getStoredRestaurants();
 
-  res.render('restaurants', { numberOfRestaurants: storedRestaurants.length, restaurants: storedRestaurants });
+  //이름차 순으로 나오도록 조정
+  storedRestaurants.sort(function (resA, resB) {
+    if ((order === 'asc' && resA.name > resB.name) || (order === 'desc' && resB.name > resA.name)) {
+      return 1;
+    }
+    return -1;
+  });
+
+  res.render('restaurants', { numberOfRestaurants: storedRestaurants.length, restaurants: storedRestaurants, nextOrder: nextOrder });
 });
 
 //클릭한 식당의 상세정보
